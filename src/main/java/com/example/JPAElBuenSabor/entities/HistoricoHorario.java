@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @Table(name = "historico_horario")
 public class HistoricoHorario extends Base{
 
-
     @Column(name = "fecha")
     private LocalDate fecha;
 
