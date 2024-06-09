@@ -17,10 +17,12 @@ import java.util.Date;
 @Builder
 public class HistoricoHorario extends Base{
 
+
     private Date fecha;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sucursal_id")
+
     private Sucursal sucursal;
 
     @ManyToOne(fetch = FetchType.LAZY)

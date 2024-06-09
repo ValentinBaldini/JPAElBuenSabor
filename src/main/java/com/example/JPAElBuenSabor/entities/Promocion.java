@@ -26,7 +26,14 @@ public class Promocion {
     @Column(name = "fechaDesde")
     private Date fechaDesde;
 
+    @Column(name = "fechaHasta")
     private Date fechaHasta;
 
+    @Column(name = "descripcion")
+    private String descripcion;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_imagen")
+    private Imagen id_imagen;
 
 }
