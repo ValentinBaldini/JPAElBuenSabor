@@ -1,30 +1,51 @@
 package com.example.JPAElBuenSabor.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
-@AllArgsConstructor
+import java.time.LocalTime;
+
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "sucursal")
+@Entity
+@ToString
+@Builder
 public class Sucursal extends Base{
 
-    @Column(name =  "nombre")
     private String nombre;
+    private Boolean esCasaMatriz;
 
-    @Column(name = "es_casa_matriz")
-    private boolean esCasaMatriz;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_domicilio")
-    private Domicilio domicilio;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_empresa")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="empresa_id")
     private Empresa empresa;
+
+    @OneToOne
+    private Domicilio domicilio;
+/*
+    @ManyToMany
+    //SE AGREGA EL JOIN TABLE PARA QUE JPA CREE LA TABLA INTERMEDIA EN UNA RELACION MANY TO MANY
+    @JoinTable(name = "sucursal_categoria",
+            joinColumns = @JoinColumn(name = "sucursal_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
+    @Builder.Default
+    private Set<Categoria> categorias = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @JoinTable(name = "sucursal_promocion",
+            joinColumns = @JoinColumn(name = "promocion_id"),
+            inverseJoinColumns = @JoinColumn(name = "sucursal_id"))
+    @Builder.Default
+    private Set<Promocion> promociones = new HashSet<>();
+
+    @OneToMany(mappedBy = "sucursal",cascade = CascadeType.ALL)
+    @Builder.Default
+    private Set<Pedido> pedidos = new HashSet<>();
+
+    @OneToMany(mappedBy = "sucursal",cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<Empleado> empleados = new HashSet<>();*/
 }

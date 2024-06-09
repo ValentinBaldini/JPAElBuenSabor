@@ -1,31 +1,18 @@
 package com.example.JPAElBuenSabor.entities;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "empresa")
+@Entity
+@ToString
+@Builder
 public class Empresa extends Base{
 
-    @Column(name = "nombre")
     private String nombre;
-
-    @Column(name = "razon_social")
     private String razonSocial;
-
-    @Column(name = "cuil")
-    private Long cuil;
-
-    //private List<Sucursal> sucursales = new ArrayList<>();
-
+    private String cuil;
 }

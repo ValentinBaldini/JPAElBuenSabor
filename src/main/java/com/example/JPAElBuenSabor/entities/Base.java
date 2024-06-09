@@ -1,6 +1,9 @@
 package com.example.JPAElBuenSabor.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -14,9 +17,10 @@ import java.io.Serializable;
 @Setter
 @SuperBuilder
 public abstract class Base implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    protected Long id;
+    private Long id;
+    private boolean eliminado;
 
-    protected boolean eliminado;
 }

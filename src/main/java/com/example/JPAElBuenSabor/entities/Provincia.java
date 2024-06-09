@@ -1,24 +1,28 @@
 package com.example.JPAElBuenSabor.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
-@AllArgsConstructor
+import java.util.HashSet;
+import java.util.Set;
+
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "provincia")
+@Entity
+@ToString
+@Builder
 public class Provincia extends Base{
 
-
-    @Column(name = "nombre")
     private String nombre;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_pais")
+    @ManyToOne(fetch = FetchType.LAZY) // Considera usar FetchType.LAZY si es posible
+    @JoinColumn(name = "pais_id")
     private Pais pais;
+
+   /* @OneToMany(mappedBy = "provincia", fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<Localidad> localidades = new HashSet<>();*/
+
 }

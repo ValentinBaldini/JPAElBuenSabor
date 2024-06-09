@@ -1,4 +1,6 @@
+
 package com.example.JPAElBuenSabor.entities;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,10 +15,16 @@ import lombok.*;
 @Entity
 @ToString
 @Builder
-public class Telefono extends Base{
-    private String numero;
+public class DomicilioCliente extends Base{
+
+    private Boolean estaActivo;
+    private String nombre;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="persona_id")
-    private Persona persona;
+    @JoinColumn(name="domicilio_id")
+    private Domicilio domicilio;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="cliente_id")
+    private Cliente cliente;
 }
