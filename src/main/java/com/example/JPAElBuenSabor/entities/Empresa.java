@@ -15,10 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "empresa")
-public class Empresa {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Empresa extends Base{
 
     @Column(name = "nombre")
     private String nombre;

@@ -11,13 +11,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "horario_apertura")
-public class HorarioApertura extends Base{
+@Table(name = "telefono")
+public class Telefono extends Base{
 
+    @Column(name = "numero")
+    private String numero;
 
-    @Column(name = "hora")
-    private int hora;
-
-    @Column(name = "minutos")
-    private int minutos;
+   /* @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_persona")
+    private Persona persona;*/
 }

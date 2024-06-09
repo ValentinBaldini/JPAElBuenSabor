@@ -12,11 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "sucursal")
-public class Sucursal {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Sucursal extends Base{
 
     @Column(name =  "nombre")
     private String nombre;

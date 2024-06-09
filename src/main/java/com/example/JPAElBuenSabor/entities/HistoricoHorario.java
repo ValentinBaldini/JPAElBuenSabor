@@ -14,11 +14,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Table(name = "historico_horario")
-public class HistoricoHorario {
+public class HistoricoHorario extends Base{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name = "fecha")
     private LocalDate fecha;

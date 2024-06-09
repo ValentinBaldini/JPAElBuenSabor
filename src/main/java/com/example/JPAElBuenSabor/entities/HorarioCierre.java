@@ -12,11 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "horario_cierre")
-public class HorarioCierre {
+public class HorarioCierre extends Base{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name = "hora")
     private int hora;
