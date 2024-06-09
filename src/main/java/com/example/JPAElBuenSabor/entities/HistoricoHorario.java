@@ -1,35 +1,33 @@
 package com.example.JPAElBuenSabor.entities;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.*;
 
-import java.time.LocalDate;
+import java.util.Date;
 
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "historico_horario")
+@Entity
+@ToString
+@Builder
 public class HistoricoHorario extends Base{
 
+    private Date fecha;
 
-    @Column(name = "fecha")
-    private LocalDate fecha;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_sucursal")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sucursal_id")
     private Sucursal sucursal;
 
-    @ManyToOne(cascade =  CascadeType.PERSIST)
-    @JoinColumn(name = "fk_horario_apertura")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "horario_apertura_id")
     private HorarioApertura horarioApertura;
 
-    @ManyToOne(cascade =  CascadeType.PERSIST)
-    @JoinColumn(name = "fk_horario_cierre")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "horario_cierre_id")
     private HorarioCierre horarioCierre;
-
 }

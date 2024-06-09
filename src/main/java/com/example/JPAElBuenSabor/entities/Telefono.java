@@ -1,23 +1,22 @@
 package com.example.JPAElBuenSabor.entities;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.*;
 
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "telefono")
+@Entity
+@ToString
+@Builder
 public class Telefono extends Base{
-
-    @Column(name = "numero")
     private String numero;
 
-   /* @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_persona")
-    private Persona persona;*/
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="persona_id")
+    private Persona persona;
 }

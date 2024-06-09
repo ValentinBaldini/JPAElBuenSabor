@@ -1,18 +1,16 @@
 package com.example.JPAElBuenSabor.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Getter
 @Setter
 @Entity
 @ToString
-//@Inheritance(strategy = InheritanceType.JOINED)
+@SuperBuilder
 public class Cliente extends Persona{
-
-    @Column(name = "dinero_inicial")
-    private String dinero;
 
 }

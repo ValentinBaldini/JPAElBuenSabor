@@ -1,29 +1,29 @@
 package com.example.JPAElBuenSabor.entities;
 
+import com.example.JPAElBuenSabor.entities.enums.Roles;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "historico_rol")
+@Entity
+@ToString
+@Builder
 public class HistoricoRol extends Base{
 
-    @Column(name = "fecha")
     private Date fecha;
+    @Enumerated(EnumType.STRING)
+    private Roles rol;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_rol")
-    private Rol rol;
+    /*@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="rol_id")
+    private Rol rol;*/
 
-    /*@ManyToOne(cascade =  CascadeType.PERSIST)
-    @JoinColumn(name = "fk_persona")
-    private Persona persona;*/
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="persona_id")
+    private Persona persona;
 }

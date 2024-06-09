@@ -1,17 +1,18 @@
 package com.example.JPAElBuenSabor.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
-@AllArgsConstructor
+import java.util.HashSet;
+import java.util.Set;
+
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "pais")
+@Entity
+@ToString
+@Builder
 public class Pais extends Base{
 
     @Column(name = "nombre")

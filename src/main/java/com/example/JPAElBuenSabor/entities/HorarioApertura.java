@@ -1,23 +1,16 @@
 package com.example.JPAElBuenSabor.entities;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import lombok.*;
 
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "horario_apertura")
+@Entity
+@ToString
+@Builder
 public class HorarioApertura extends Base{
-
-
-    @Column(name = "hora")
-    private int hora;
-
-    @Column(name = "minutos")
-    private int minutos;
+    private Integer hora;
+    private Integer minuto;
 }

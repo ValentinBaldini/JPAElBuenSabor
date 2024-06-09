@@ -1,6 +1,9 @@
 package com.example.JPAElBuenSabor.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -10,13 +13,11 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Entity
 @ToString
-//@Inheritance(strategy = InheritanceType.JOINED)
-public class Empleado extends Persona {
-
-    @Column(name = "legajo")
+@SuperBuilder
+public class Empleado extends Persona{
     private String legajo;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_sucursal")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="sucursal_id")
     private Sucursal sucursal;
 }
