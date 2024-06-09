@@ -12,11 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "domicilio")
-public class Domicilio {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Domicilio extends Base{
 
     @Column(name = "calle")
     private String calle;

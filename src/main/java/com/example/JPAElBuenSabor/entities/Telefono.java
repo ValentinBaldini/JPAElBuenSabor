@@ -12,16 +12,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "telefono")
-public class Telefono {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Telefono extends Base{
 
     @Column(name = "numero")
     private String numero;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_persona")
-    private Persona persona;
 }
