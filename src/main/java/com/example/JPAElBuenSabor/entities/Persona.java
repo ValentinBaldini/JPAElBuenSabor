@@ -23,4 +23,8 @@ public abstract class Persona extends Base implements Serializable{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="usuario_id")
     private Usuario usuario;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="imagen_id")
+    private Imagen imagen;
 }

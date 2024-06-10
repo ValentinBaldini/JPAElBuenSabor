@@ -1,34 +1,31 @@
 package com.example.JPAElBuenSabor.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "historicoHorarioPromocion")
+@Entity
+@ToString
+@Builder
 public class HistoricoHorarioPromocion extends Base{
 
-    @Column(name = "fecha")
     private Date fecha;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_promocion")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "promocion_id")
     private Promocion promocion;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_horarioPromocionApertura")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "horario_promocion_apertura_id")
     private HorarioPromocionApertura horarioPromocionApertura;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_horarioPromocionCierre")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "horario_promocion_cierre_id")
     private HorarioPromocionCierre horarioPromocionCierre;
 
 
