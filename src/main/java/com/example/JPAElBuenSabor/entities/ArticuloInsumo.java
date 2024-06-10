@@ -2,6 +2,7 @@ package com.example.JPAElBuenSabor.entities;
 
 import jakarta.persistence.Entity;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -9,7 +10,7 @@ import lombok.*;
 @Setter
 @Entity
 @ToString
-@Builder
+@SuperBuilder
 public class ArticuloInsumo extends Articulo{
 
     private Integer stockMaximo;
