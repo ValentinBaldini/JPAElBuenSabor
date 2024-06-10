@@ -1,7 +1,7 @@
 package com.example.JPAElBuenSabor.controllers;
 
-import com.example.JPAElBuenSabor.entities.Pais;
-import com.example.JPAElBuenSabor.services.PaisService;
+import com.example.JPAElBuenSabor.entities.Domicilio;
+import com.example.JPAElBuenSabor.services.DomicilioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,26 +11,17 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(path = "paises")
-public class PaisController {
+@RequestMapping(path = "domicilio")
+public class DomicilioController {
 
     @Autowired
-    private PaisService paisService;
-
-    @GetMapping("/buscar")
-    public ResponseEntity<?> searchByDenominacion(@RequestParam String denominacion){
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(paisService.buscarPorDenominacion(denominacion));
-        }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error por favor intente mas tarde.\"}");
-        }
-    }
+    private DomicilioService domicilioService;
 
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         try {
-            List<Pais> paises = paisService.findAll();
-            return ResponseEntity.status(HttpStatus.OK).body(paises);
+            List<Domicilio> domicilios = domicilioService.findAll();
+            return ResponseEntity.status(HttpStatus.OK).body(domicilios);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\":\"Error por favor intente más tarde.\"}");
@@ -40,8 +31,8 @@ public class PaisController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id) {
         try {
-            Pais pais = paisService.findById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(pais);
+            Domicilio domicilio = domicilioService.findById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(domicilio);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error por favor intente más tarde.\"}");
@@ -49,10 +40,10 @@ public class PaisController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody Pais pais) {
+    public ResponseEntity<?> save(@RequestBody Domicilio domicilio) {
         try {
-            Pais savedPais = paisService.save(pais);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedPais);
+            Domicilio savedDomicilio = domicilioService.save(domicilio);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedDomicilio);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\":\"Error por favor intente más tarde.\"}");
@@ -60,10 +51,10 @@ public class PaisController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Pais pais) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Domicilio domicilio) {
         try {
-            Pais updatedPais = paisService.update(id, pais);
-            return ResponseEntity.status(HttpStatus.OK).body(updatedPais);
+            Domicilio updatedDomicilio =domicilioService.update(id, domicilio);
+            return ResponseEntity.status(HttpStatus.OK).body(updatedDomicilio);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\":\"Error por favor intente más tarde.\"}");
@@ -73,7 +64,7 @@ public class PaisController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
-            boolean deleted = paisService.delete(id);
+            boolean deleted = domicilioService.delete(id);
             return ResponseEntity.status(HttpStatus.OK).body(deleted);
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,3 +72,4 @@ public class PaisController {
         }
     }
 }
+

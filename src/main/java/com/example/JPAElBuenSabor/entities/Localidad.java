@@ -16,7 +16,7 @@ public class Localidad extends Base{
 
     private String nombre;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "provincia_id")
     private Provincia provincia;
 
