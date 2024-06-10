@@ -46,6 +46,9 @@ public class JpaElBuenSaborApplication{
 	private ProvinciaRepository provinciaRepository;
 
 	@Autowired
+	HistoricoStockRepository historicoStockRepository;
+
+	@Autowired
 	private LocalidadRepository localidadRepository;
 
 	@Autowired
@@ -62,6 +65,9 @@ public class JpaElBuenSaborApplication{
 
 	@Autowired
 	private HorarioCierreRepository horarioCierreRepository;
+
+	@Autowired
+	HistoricoPrecioArticuloInsumoRepository historicoPrecioArticuloInsumoRepository;
 
 	@Autowired
 	private HorarioAperturaRepository horarioAperturaRepository;
@@ -118,7 +124,6 @@ public class JpaElBuenSaborApplication{
 	@Bean
 	CommandLineRunner init() {
 		return args -> {
-			logger.info("----------------ESTOY----FUNCIONANDO---------------------");
 
 			/*
 
@@ -276,10 +281,9 @@ public class JpaElBuenSaborApplication{
 			//CREACION DE PROVINCIAS
 			Provincia provincia1 = Provincia.builder().nombre("Mendoza").pais(pais1).build();
 			Provincia provincia2 = Provincia.builder().nombre("Buenos Aires").pais(pais1).build();
-			logger.info("----------------Etapa 1---------------------");
+
 			provinciaRepository.save(provincia1);
 			provinciaRepository.save(provincia2);
-			logger.info("----------------Etapa 2---------------------");
 			//CREACION DE LOCALIDADES
 
 			Localidad localidad1 = Localidad.builder().nombre("Lujan de Cuyo").provincia(provincia1).build();
@@ -287,7 +291,6 @@ public class JpaElBuenSaborApplication{
 			Localidad localidad3 = Localidad.builder().nombre("Mar del Plata").provincia(provincia2).build();
 			Localidad localidad4 = Localidad.builder().nombre("Mar de las Pampas").provincia(provincia2).build();
 
-			logger.info("----------------Etapa 3---------------------");
 			localidadRepository.save(localidad1);
 			localidadRepository.save(localidad2);
 			localidadRepository.save(localidad3);
@@ -722,7 +725,7 @@ public class JpaElBuenSaborApplication{
 
 			Categoria categoria1=Categoria.builder()
 					.denominacion("CategoriaRoot")
-					.esInsumo(true)
+					.esInsumo(false)
 					.build();
 			Categoria categoria2=Categoria.builder()
 					.denominacion("Carnes")
@@ -731,23 +734,43 @@ public class JpaElBuenSaborApplication{
 					.build();
 			Categoria categoria3=Categoria.builder()
 					.denominacion("Bebidas")
-					.esInsumo(true)
+					.esInsumo(false)
 					.categoria(categoria1)
 					.build();
 			Categoria categoria4=Categoria.builder()
 					.denominacion("Pizzas")
-					.esInsumo(true)
+					.esInsumo(false)
 					.categoria(categoria1)
 					.build();
 			Categoria categoria5=Categoria.builder()
 					.denominacion("Gaseosas")
-					.esInsumo(true)
+					.esInsumo(false)
 					.categoria(categoria3)
 					.build();
 			Categoria categoria6=Categoria.builder()
 					.denominacion("Cervezas")
 					.esInsumo(true)
 					.categoria(categoria3)
+					.build();
+			Categoria categoria7=Categoria.builder()
+					.denominacion("Verduras")
+					.esInsumo(true)
+					.categoria(categoria1)
+					.build();
+			Categoria categoria8=Categoria.builder()
+					.denominacion("Lacteos")
+					.esInsumo(true)
+					.categoria(categoria1)
+					.build();
+			Categoria categoria9=Categoria.builder()
+					.denominacion("Quesos")
+					.esInsumo(true)
+					.categoria(categoria8)
+					.build();
+			Categoria categoria10=Categoria.builder()
+					.denominacion("Insumos")
+					.esInsumo(true)
+					.categoria(categoria1)
 					.build();
 
 			categoriaRepository.save(categoria1);
@@ -756,6 +779,10 @@ public class JpaElBuenSaborApplication{
 			categoriaRepository.save(categoria4);
 			categoriaRepository.save(categoria5);
 			categoriaRepository.save(categoria6);
+			categoriaRepository.save(categoria7);
+			categoriaRepository.save(categoria8);
+			categoriaRepository.save(categoria9);
+			categoriaRepository.save(categoria10);
 
 			CategoriaSucursal categoriaSucursal1=CategoriaSucursal.builder()
 					.categoria(categoria2)
@@ -800,6 +827,147 @@ public class JpaElBuenSaborApplication{
 			categoriaSucursalRepository.save(categoriaSucursal2);
 			categoriaSucursalRepository.save(categoriaSucursal1);
 			categoriaSucursalRepository.save(categoriaSucursal7);
+
+			UnidadMedida unidadMedida1=UnidadMedida.builder()
+					.denominacion("gramos")
+					.build();
+			UnidadMedida unidadMedida2=UnidadMedida.builder()
+					.denominacion("litros")
+					.build();
+			UnidadMedida unidadMedida3=UnidadMedida.builder()
+					.denominacion("pizca")
+					.build();
+			UnidadMedida unidadMedida4=UnidadMedida.builder()
+					.denominacion("porciones")
+					.build();
+			UnidadMedida unidadMedida5=UnidadMedida.builder()
+					.denominacion("unidades")
+					.build();
+			unidadMedidaRepository.save(unidadMedida1);
+			unidadMedidaRepository.save(unidadMedida2);
+			unidadMedidaRepository.save(unidadMedida3);
+			unidadMedidaRepository.save(unidadMedida4);
+			unidadMedidaRepository.save(unidadMedida5);
+
+			ArticuloInsumo articuloInsumo1=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Tomate")
+					.stockMaximo(50)
+					.stockMinimo(10)
+					.categoria(categoria7)
+					.unidadMedida(unidadMedida5)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo2=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Harina")
+					.stockMaximo(10000)
+					.stockMinimo(1000)
+					.categoria(categoria10)
+					.unidadMedida(unidadMedida1)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo3=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Coca Cola 1.25")
+					.stockMaximo(500)
+					.stockMinimo(100)
+					.categoria(categoria5)
+					.unidadMedida(unidadMedida2)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo4=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Muzzarela")
+					.stockMaximo(50000)
+					.stockMinimo(10000)
+					.categoria(categoria9)
+					.unidadMedida(unidadMedida1)
+					.imagen(imagen6)
+					.build();
+
+			articuloInsumoRepository.save(articuloInsumo1);
+			articuloInsumoRepository.save(articuloInsumo2);
+			articuloInsumoRepository.save(articuloInsumo3);
+			articuloInsumoRepository.save(articuloInsumo4);
+
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo1=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo1)
+					.fecha(new Date())
+					.precioCosto(20.50)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo2=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo2)
+					.fecha(new Date())
+					.precioCosto(12.50)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo3=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo3)
+					.fecha(new Date())
+					.precioCosto(8.99)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo4=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo4)
+					.fecha(new Date())
+					.precioCosto(22.00)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo5=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo1)
+					.fecha(new Date())
+					.precioCosto(19.99)
+					.build();
+
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo1);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo2);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo3);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo4);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo5);
+
+			HistoricoStock historicoStock1=HistoricoStock.builder()
+					.articuloInsumo(articuloInsumo1)
+					.fecha(new Date())
+					.stock(13).build();
+			HistoricoStock historicoStock2=HistoricoStock.builder()
+					.articuloInsumo(articuloInsumo1)
+					.fecha(new Date())
+					.stock(11).build();
+			HistoricoStock historicoStock3=HistoricoStock.builder()
+					.articuloInsumo(articuloInsumo1)
+					.fecha(new Date())
+					.stock(33).build();
+
+			historicoStockRepository.save(historicoStock1);
+			historicoStockRepository.save(historicoStock2);
+			historicoStockRepository.save(historicoStock3);
+
+			ArticuloManufacturado articuloManufacturado1=ArticuloManufacturado.builder()
+					.denominacion("Pizza Napolitana")
+					.unidadMedida(unidadMedida4)
+					.imagen(imagen4)
+					.categoria(categoria4)
+					.Preparacion("Compra una pizza y chau")
+					.tiempoEstimadoEnMinutos(30)
+					.build();
+			ArticuloManufacturado articuloManufacturado2=ArticuloManufacturado.builder()
+					.denominacion("Pizza Especial")
+					.unidadMedida(unidadMedida4)
+					.imagen(imagen4)
+					.categoria(categoria4)
+					.Preparacion("hacete una pizza con jamon")
+					.tiempoEstimadoEnMinutos(30)
+					.build();
+			ArticuloManufacturado articuloManufacturado3=ArticuloManufacturado.builder()
+					.denominacion("Pizza normal")
+					.unidadMedida(unidadMedida4)
+					.imagen(imagen4)
+					.categoria(categoria4)
+					.Preparacion("Echale queso  a la pizza")
+					.tiempoEstimadoEnMinutos(30)
+					.build();
+
+			articuloManufacturadoRepository.save(articuloManufacturado1);
+			articuloManufacturadoRepository.save(articuloManufacturado2);
+			articuloManufacturadoRepository.save(articuloManufacturado3);
 		};
 	}
 }

@@ -1,28 +1,25 @@
 package com.example.JPAElBuenSabor.entities;
 
+import com.example.JPAElBuenSabor.entities.enums.Estado;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.sql.ast.tree.expression.Collation;
 
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "pedidoEstado")
+@Entity
+@ToString
+@Builder
 public class PedidoEstado extends Base{
 
-    @Column(name = "minutos")
     private int minutos;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_pedido")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_estado")
+    @Enumerated(EnumType.STRING)
     private Estado estado;
 }
