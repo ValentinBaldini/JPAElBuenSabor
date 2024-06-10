@@ -1,25 +1,26 @@
 package com.example.JPAElBuenSabor.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.web.servlet.tags.ArgumentTag;
 
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "promocionDetalle")
+@Entity
+@ToString
+@Builder
 public class PromocionDetalle extends Base{
 
-    @Column(name = "cantidad")
     private int cantidad;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_promocion")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "promocion_id")
     private Promocion promocion;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "articulo_id")
+    private Articulo articulo;
 
 }

@@ -1,8 +1,6 @@
 package com.example.JPAElBuenSabor.entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.*;
 
 @NoArgsConstructor
@@ -12,7 +10,10 @@ import lombok.*;
 @Entity
 @ToString
 @Builder
-public class UnidadMedida extends Base {
+public class ArticuloInsumo extends Articulo{
 
-    private String denominacion;
+    private Integer stockMaximo;
+    private Integer stockMinimo;
+    private Boolean esParaElaborar;
+
 }
