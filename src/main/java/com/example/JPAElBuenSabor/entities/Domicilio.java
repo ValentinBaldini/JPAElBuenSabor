@@ -19,7 +19,7 @@ public class Domicilio extends Base{
     private Integer numero;
     private Integer cp;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "localidad_id")
     private Localidad localidad;
 

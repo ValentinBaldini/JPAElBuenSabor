@@ -13,6 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Calendar;
 import java.util.Date;
 
 @SpringBootApplication
@@ -133,157 +134,9 @@ public class JpaElBuenSaborApplication{
 	CommandLineRunner init() {
 		return args -> {
 
-			/*
+			Calendar calendar=Calendar.getInstance();
 
-			// Crear Unidades de medida
-			UnidadMedida unidadMedidaLitros = UnidadMedida.builder().denominacion("Litros").build();
-			UnidadMedida unidadMedidaGramos = UnidadMedida.builder().denominacion("Gramos").build();
-			UnidadMedida unidadMedidaCantidad = UnidadMedida.builder().denominacion("Cantidad").build();
-			UnidadMedida unidadMedidaPorciones = UnidadMedida.builder().denominacion("Porciones").build();
-			unidadMedidaRepository.save(unidadMedidaLitros);
-			unidadMedidaRepository.save(unidadMedidaGramos);
-			unidadMedidaRepository.save(unidadMedidaCantidad);
-			unidadMedidaRepository.save(unidadMedidaPorciones);
-
-			// Crear Insumos , coca cola , harina , etc
-			ArticuloInsumo cocaCola = ArticuloInsumo.builder().
-					denominacion("Coca cola").
-					esParaElaborar(false).
-					stockActual(5).
-					stockMaximo(50).
-					build();
-			ArticuloInsumo harina = ArticuloInsumo.builder().denominacion("Harina").esParaElaborar(true).stockActual(4).stockMaximo(40).build();
-			ArticuloInsumo queso = ArticuloInsumo.builder().denominacion("Queso").esParaElaborar(true).stockActual(20).stockMaximo(50).build();
-			ArticuloInsumo tomate = ArticuloInsumo.builder().denominacion("Tomate").esParaElaborar(true).stockActual(20).stockMaximo(50).build();
-			// Grabamos los Articulos
-			articuloInsumoRepository.save(cocaCola);
-			articuloInsumoRepository.save(harina);
-			articuloInsumoRepository.save(queso);
-			articuloInsumoRepository.save(tomate);
-
-			cocaCola.setUnidadMedida(unidadMedidaLitros);
-			harina.setUnidadMedida(unidadMedidaGramos);
-			queso.setUnidadMedida(unidadMedidaGramos);
-			tomate.setUnidadMedida(unidadMedidaCantidad);
-
-			articuloInsumoRepository.save(cocaCola);
-			articuloInsumoRepository.save(harina);
-			articuloInsumoRepository.save(queso);
-			articuloInsumoRepository.save(tomate);
-
-			unidadMedidaLitros.getArticulos().add(cocaCola);
-			unidadMedidaGramos.getArticulos().add(harina);
-			unidadMedidaGramos.getArticulos().add(queso);
-			unidadMedidaCantidad.getArticulos().add(tomate);
-
-			unidadMedidaRepository.save(unidadMedidaLitros);
-			unidadMedidaRepository.save(unidadMedidaGramos);
-			unidadMedidaRepository.save(unidadMedidaCantidad);
-			unidadMedidaRepository.save(unidadMedidaPorciones);
-
-
-
-			// crear fotos para cada insumo
-			Imagen imagenArticuloCoca = Imagen.builder().
-					url("https://m.media-amazon.com/images/I/51v8nyxSOYL._SL1500_.jpg").
-					build();
-			Imagen imagenArticuloHarina = Imagen.builder().url("https://mandolina.co/wp-content/uploads/2023/03/648366622-1024x683.jpg").build();
-			Imagen imagenArticuloQueso = Imagen.builder().url("https://superdepaso.com.ar/wp-content/uploads/2021/06/SANTAROSA-PATEGRAS-04.jpg").build();
-			Imagen imagenArticuloTomate = Imagen.builder().url("https://thefoodtech.com/wp-content/uploads/2020/06/Componentes-de-calidad-en-el-tomate-828x548.jpg").build();
-
-			imagenArticuloRepository.save(imagenArticuloCoca);
-			imagenArticuloRepository.save(imagenArticuloHarina);
-			imagenArticuloRepository.save(imagenArticuloQueso);
-			imagenArticuloRepository.save(imagenArticuloTomate);
-
-			//ASOCIAMOS IMAGEN CON INSUMOS
-			cocaCola.setImagen(imagenArticuloCoca);
-			harina.setImagen(imagenArticuloHarina);
-			queso.setImagen(imagenArticuloQueso);
-			tomate.setImagen(imagenArticuloTomate);
-
-			articuloInsumoRepository.save(cocaCola);
-			articuloInsumoRepository.save(harina);
-			articuloInsumoRepository.save(queso);
-			articuloInsumoRepository.save(tomate);
-
-
-			logger.info("Hasta aca llego");
-
-
-
-			harina.setCategoria(categoriaInsumos);
-			queso.setCategoria(categoriaInsumos);
-			tomate.setCategoria(categoriaInsumos);
-			cocaCola.setCategoria(categoriaBebidas);
-
-			articuloInsumoRepository.save(harina);
-			articuloInsumoRepository.save(queso);
-			articuloInsumoRepository.save(tomate);
-			articuloInsumoRepository.save(cocaCola);
-
-
-//			//ASOCIAMOS CATEGORIA CON INSUMOS
-			categoriaInsumos.getArticulos().add(harina);
-			categoriaInsumos.getArticulos().add(queso);
-			categoriaInsumos.getArticulos().add(tomate);
-			categoriaGaseosas.getArticulos().add(cocaCola);
-			categoriaRepository.save(categoriaInsumos);
-			categoriaRepository.save(categoriaGaseosas);
-
-//			// Crear Articulos Manufacturados
-			ArticuloManufacturado pizzaMuzarella = ArticuloManufacturado.builder().
-					denominacion("Pizza Muzarella").
-					descripcion("Una pizza clasica").
-					tiempoEstimadoMinutos(15).
-					preparacion("Pasos de preparacion de una muzza de toda la vida").
-					build();
-			ArticuloManufacturado pizzaNapolitana = ArticuloManufacturado.builder().
-					denominacion("Pizza Napolitana").descripcion("Una pizza clasica").
-					tiempoEstimadoMinutos(15).
-					preparacion("Pasos de preparacion de una pizza napolitana italiana").
-					build();
-
-			articuloManufacturadoRepository.save(pizzaMuzarella);
-			articuloManufacturadoRepository.save(pizzaNapolitana);
-
-			// Crear fotos para los articulos manufacturados
-			Imagen imagenArticuloPizzaMuzarella = Imagen.builder().
-					url("https://storage.googleapis.com/fitia-api-bucket/media/images/recipe_images/1002846.jpg").
-					build();
-			Imagen imagenArticuloPizzaNapolitana = Imagen.builder().
-					url("https://assets.elgourmet.com/wp-content/uploads/2023/03/8metlvp345_portada-pizza-1024x686.jpg.webp").
-					build();
-//			ImagenArticulo imagenArticuloQueso = ImagenArticulo.builder().
-//					url("https://cdn2.cocinadelirante.com/sites/default/files/images/2023/09/como-hacer-queso-con-1-litro-de-leche.jpg").
-//					build();
-
-			imagenArticuloRepository.save(imagenArticuloPizzaMuzarella);
-			imagenArticuloRepository.save(imagenArticuloPizzaNapolitana);
-			//imagenArticuloRepository.save(imagenArticuloQueso);
-
-
-
-			//ASOCIAMOS IMAGEN CON ARTICULO MANUFACTURADO
-			pizzaMuzarella.setImagen(imagenArticuloPizzaMuzarella);
-			pizzaNapolitana.setImagen(imagenArticuloPizzaNapolitana);
-			//queso.getImagenes().add(imagenArticuloQueso);
-
-			pizzaMuzarella.setUnidadMedida(unidadMedidaPorciones);
-			pizzaNapolitana.setUnidadMedida(unidadMedidaPorciones);
-
-			pizzaMuzarella.setCategoria(categoriaPizzas);
-			pizzaNapolitana.setCategoria(categoriaPizzas);
-
-			articuloManufacturadoRepository.save(pizzaMuzarella);
-			articuloManufacturadoRepository.save(pizzaNapolitana);
-			//articuloInsumoRepository.save(queso);
-*/
-			// Etapa del dashboard
-			// Crear 1 pais
-			// Crear 2 provincias para ese pais
-			// crear 2 localidades para cada provincia
-			Pais pais1 = Pais.builder().nombre("Argentina").build();
+			Pais pais1 = Pais.builder().denominacion("Argentina").build();
 			paisRepository.save(pais1);
 
 			//CREACION DE PROVINCIAS
@@ -645,9 +498,10 @@ public class JpaElBuenSaborApplication{
 					.promocion(promo2)
 					.fecha(new Date())
 					.precioPromocional(77.5).build();
+			calendar.set(2022,11,18);
 			HistoricoPrecioPromocion historicoPrecioPromocion4=HistoricoPrecioPromocion.builder()
 					.promocion(promo1)
-					.fecha(new Date())
+					.fecha(calendar.getTime())
 					.precioPromocional(90.5).build();
 
 			historicoPrecioPromocionRepository.save(historicoPrecioPromocion1);
@@ -780,6 +634,16 @@ public class JpaElBuenSaborApplication{
 					.esInsumo(true)
 					.categoria(categoria1)
 					.build();
+			Categoria categoria11=Categoria.builder()
+					.denominacion("Condimentos")
+					.esInsumo(true)
+					.categoria(categoria1)
+					.build();
+			Categoria categoria12=Categoria.builder()
+					.denominacion("Panificados")
+					.esInsumo(true)
+					.categoria(categoria1)
+					.build();
 
 			categoriaRepository.save(categoria1);
 			categoriaRepository.save(categoria2);
@@ -791,6 +655,8 @@ public class JpaElBuenSaborApplication{
 			categoriaRepository.save(categoria8);
 			categoriaRepository.save(categoria9);
 			categoriaRepository.save(categoria10);
+			categoriaRepository.save(categoria11);
+			categoriaRepository.save(categoria12);
 
 			CategoriaSucursal categoriaSucursal1=CategoriaSucursal.builder()
 					.categoria(categoria2)
@@ -843,7 +709,7 @@ public class JpaElBuenSaborApplication{
 					.denominacion("litros")
 					.build();
 			UnidadMedida unidadMedida3=UnidadMedida.builder()
-					.denominacion("pizca")
+					.denominacion("cucharadita")
 					.build();
 			UnidadMedida unidadMedida4=UnidadMedida.builder()
 					.denominacion("porciones")
@@ -876,7 +742,7 @@ public class JpaElBuenSaborApplication{
 					.imagen(imagen6)
 					.build();
 			ArticuloInsumo articuloInsumo3=ArticuloInsumo.builder()
-					.esParaElaborar(true)
+					.esParaElaborar(false)
 					.denominacion("Coca Cola 1.25")
 					.stockMaximo(500)
 					.stockMinimo(100)
@@ -893,55 +759,279 @@ public class JpaElBuenSaborApplication{
 					.unidadMedida(unidadMedida1)
 					.imagen(imagen6)
 					.build();
+			ArticuloInsumo articuloInsumo5=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Lechuga")
+					.stockMaximo(50000)
+					.stockMinimo(1000)
+					.categoria(categoria7)
+					.unidadMedida(unidadMedida1)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo6=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Mayonesa")
+					.stockMaximo(500000)
+					.stockMinimo(100000)
+					.categoria(categoria11)
+					.unidadMedida(unidadMedida1)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo7=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Ketchup")
+					.stockMaximo(500000)
+					.stockMinimo(100000)
+					.categoria(categoria11)
+					.unidadMedida(unidadMedida1)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo8=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Carne Molida")
+					.stockMaximo(500000)
+					.stockMinimo(10000)
+					.categoria(categoria2)
+					.unidadMedida(unidadMedida1)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo9=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Lomo")
+					.stockMaximo(500000)
+					.stockMinimo(10000)
+					.categoria(categoria2)
+					.unidadMedida(unidadMedida1)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo10=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Pan de Hamburguesa")
+					.stockMaximo(50000)
+					.stockMinimo(10000)
+					.categoria(categoria12)
+					.unidadMedida(unidadMedida1)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo11=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Pan Arabe para Lomo")
+					.stockMaximo(500000)
+					.stockMinimo(10000)
+					.categoria(categoria12)
+					.unidadMedida(unidadMedida1)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo12=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Huevo")
+					.stockMaximo(50000)
+					.stockMinimo(10000)
+					.categoria(categoria10)
+					.unidadMedida(unidadMedida5)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo13=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Jamon")
+					.stockMaximo(500000)
+					.stockMinimo(10000)
+					.categoria(categoria10)
+					.unidadMedida(unidadMedida1)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo14=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Sal")
+					.stockMaximo(500000)
+					.stockMinimo(10000)
+					.categoria(categoria10)
+					.unidadMedida(unidadMedida3)
+					.imagen(imagen6)
+					.build();
+			ArticuloInsumo articuloInsumo15=ArticuloInsumo.builder()
+					.esParaElaborar(true)
+					.denominacion("Papa")
+					.stockMaximo(500000)
+					.stockMinimo(10000)
+					.categoria(categoria7)
+					.unidadMedida(unidadMedida1)
+					.imagen(imagen6)
+					.build();
 
 			articuloInsumoRepository.save(articuloInsumo1);
 			articuloInsumoRepository.save(articuloInsumo2);
 			articuloInsumoRepository.save(articuloInsumo3);
 			articuloInsumoRepository.save(articuloInsumo4);
+			articuloInsumoRepository.save(articuloInsumo5);
+			articuloInsumoRepository.save(articuloInsumo6);
+			articuloInsumoRepository.save(articuloInsumo7);
+			articuloInsumoRepository.save(articuloInsumo8);
+			articuloInsumoRepository.save(articuloInsumo9);
+			articuloInsumoRepository.save(articuloInsumo10);
+			articuloInsumoRepository.save(articuloInsumo11);
+			articuloInsumoRepository.save(articuloInsumo12);
+			articuloInsumoRepository.save(articuloInsumo13);
+			articuloInsumoRepository.save(articuloInsumo14);
+			articuloInsumoRepository.save(articuloInsumo15);
 
+
+			calendar.set(2024,1,1);
 			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo1=HistoricoPrecioArticuloInsumo.builder()
 					.articuloInsumo(articuloInsumo1)
-					.fecha(new Date())
+					.fecha(calendar.getTime())
 					.precioCosto(20.50)
 					.build();
 			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo2=HistoricoPrecioArticuloInsumo.builder()
 					.articuloInsumo(articuloInsumo2)
-					.fecha(new Date())
+					.fecha(calendar.getTime())
 					.precioCosto(12.50)
 					.build();
 			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo3=HistoricoPrecioArticuloInsumo.builder()
 					.articuloInsumo(articuloInsumo3)
-					.fecha(new Date())
+					.fecha(calendar.getTime())
 					.precioCosto(8.99)
 					.build();
 			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo4=HistoricoPrecioArticuloInsumo.builder()
 					.articuloInsumo(articuloInsumo4)
-					.fecha(new Date())
+					.fecha(calendar.getTime())
 					.precioCosto(22.00)
 					.build();
 			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo5=HistoricoPrecioArticuloInsumo.builder()
-					.articuloInsumo(articuloInsumo1)
-					.fecha(new Date())
+					.articuloInsumo(articuloInsumo5)
+					.fecha(calendar.getTime())
 					.precioCosto(19.99)
 					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo6=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo6)
+					.fecha(calendar.getTime())
+					.precioCosto(9.99)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo7=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo7)
+					.fecha(calendar.getTime())
+					.precioCosto(18.89)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo8=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo8)
+					.fecha(calendar.getTime())
+					.precioCosto(16.23)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo9=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo9)
+					.fecha(calendar.getTime())
+					.precioCosto(23.23)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo10=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo10)
+					.fecha(calendar.getTime())
+					.precioCosto(09.88)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo11=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo11)
+					.fecha(calendar.getTime())
+					.precioCosto(7.25)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo12=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo12)
+					.fecha(calendar.getTime())
+					.precioCosto(7.85)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo13=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo13)
+					.fecha(calendar.getTime())
+					.precioCosto(19.99)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo14=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo14)
+					.fecha(calendar.getTime())
+					.precioCosto(24.63)
+					.build();
+			calendar.set(2024,2,1);
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo15=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo1)
+					.fecha(calendar.getTime())
+					.precioCosto(25.99)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo16=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo2)
+					.fecha(calendar.getTime())
+					.precioCosto(19.50)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo17=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo3)
+					.fecha(calendar.getTime())
+					.precioCosto(10.00)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo18=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo4)
+					.fecha(calendar.getTime())
+					.precioCosto(22.50)
+					.build();
+			calendar.set(2024,3,1);
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo19=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo1)
+					.fecha(calendar.getTime())
+					.precioCosto(27.99)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo20=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo2)
+					.fecha(calendar.getTime())
+					.precioCosto(19.99)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo21=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo3)
+					.fecha(calendar.getTime())
+					.precioCosto(12.50)
+					.build();
+			calendar.set(2024,4,1);
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo22=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo1)
+					.fecha(calendar.getTime())
+					.precioCosto(29.99)
+					.build();
+			HistoricoPrecioArticuloInsumo historicoPrecioArticuloInsumo23=HistoricoPrecioArticuloInsumo.builder()
+					.articuloInsumo(articuloInsumo2)
+					.fecha(calendar.getTime())
+					.precioCosto(22.50)
+					.build();
+
 
 			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo1);
 			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo2);
 			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo3);
 			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo4);
 			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo5);
-
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo6);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo7);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo8);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo9);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo10);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo11);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo12);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo13);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo14);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo15);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo16);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo17);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo18);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo19);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo20);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo21);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo22);
+			historicoPrecioArticuloInsumoRepository.save(historicoPrecioArticuloInsumo23);
+			calendar.set(2024,2,1);
 			HistoricoStock historicoStock1=HistoricoStock.builder()
 					.articuloInsumo(articuloInsumo1)
-					.fecha(new Date())
+					.fecha(calendar.getTime())
 					.stock(13).build();
 			HistoricoStock historicoStock2=HistoricoStock.builder()
 					.articuloInsumo(articuloInsumo1)
-					.fecha(new Date())
+					.fecha(calendar.getTime())
 					.stock(11).build();
 			HistoricoStock historicoStock3=HistoricoStock.builder()
 					.articuloInsumo(articuloInsumo1)
-					.fecha(new Date())
+					.fecha(calendar.getTime())
 					.stock(33).build();
 
 			historicoStockRepository.save(historicoStock1);
@@ -949,11 +1039,11 @@ public class JpaElBuenSaborApplication{
 			historicoStockRepository.save(historicoStock3);
 
 			ArticuloManufacturado articuloManufacturado1=ArticuloManufacturado.builder()
-					.denominacion("Pizza Napolitana")
+					.denominacion("Pizza con huevo")
 					.unidadMedida(unidadMedida4)
 					.imagen(imagen4)
 					.categoria(categoria4)
-					.Preparacion("Compra una pizza y chau")
+					.Preparacion("Pizza con muzzarella y huevo")
 					.tiempoEstimadoEnMinutos(30)
 					.build();
 			ArticuloManufacturado articuloManufacturado2=ArticuloManufacturado.builder()
@@ -961,7 +1051,7 @@ public class JpaElBuenSaborApplication{
 					.unidadMedida(unidadMedida4)
 					.imagen(imagen4)
 					.categoria(categoria4)
-					.Preparacion("hacete una pizza con jamon")
+					.Preparacion("pizza con muzzarella y jamon")
 					.tiempoEstimadoEnMinutos(30)
 					.build();
 			ArticuloManufacturado articuloManufacturado3=ArticuloManufacturado.builder()
@@ -969,30 +1059,222 @@ public class JpaElBuenSaborApplication{
 					.unidadMedida(unidadMedida4)
 					.imagen(imagen4)
 					.categoria(categoria4)
-					.Preparacion("Echale queso  a la pizza")
+					.Preparacion("pizza con queso muzzarella")
+					.tiempoEstimadoEnMinutos(30)
+					.build();
+			ArticuloManufacturado articuloManufacturado4=ArticuloManufacturado.builder()
+					.denominacion("Papas chicas")
+					.unidadMedida(unidadMedida4)
+					.imagen(imagen4)
+					.categoria(categoria4)
+					.Preparacion("Bandeja chica de papas")
+					.tiempoEstimadoEnMinutos(30)
+					.build();
+			ArticuloManufacturado articuloManufacturado5=ArticuloManufacturado.builder()
+					.denominacion("Papas Grandes")
+					.unidadMedida(unidadMedida4)
+					.imagen(imagen4)
+					.categoria(categoria4)
+					.Preparacion("Bandeja Grande de papas")
+					.tiempoEstimadoEnMinutos(30)
+					.build();
+			ArticuloManufacturado articuloManufacturado6=ArticuloManufacturado.builder()
+					.denominacion("Hamburguesa simple")
+					.unidadMedida(unidadMedida4)
+					.imagen(imagen4)
+					.categoria(categoria4)
+					.Preparacion("Hamburguesa sencilla")
+					.tiempoEstimadoEnMinutos(30)
+					.build();
+			ArticuloManufacturado articuloManufacturado7=ArticuloManufacturado.builder()
+					.denominacion("Lomo de 20 cm")
+					.unidadMedida(unidadMedida4)
+					.imagen(imagen4)
+					.categoria(categoria4)
+					.Preparacion("Lomo para 2 personas")
 					.tiempoEstimadoEnMinutos(30)
 					.build();
 
 			articuloManufacturadoRepository.save(articuloManufacturado1);
 			articuloManufacturadoRepository.save(articuloManufacturado2);
 			articuloManufacturadoRepository.save(articuloManufacturado3);
+			articuloManufacturadoRepository.save(articuloManufacturado4);
+			articuloManufacturadoRepository.save(articuloManufacturado5);
+			articuloManufacturadoRepository.save(articuloManufacturado6);
+			articuloManufacturadoRepository.save(articuloManufacturado7);
 
 			ArticuloManufacturadoDetalle articuloManufacturadoDetalle1=ArticuloManufacturadoDetalle.builder()
-					.articuloInsumo(articuloInsumo1)
-					.articuloManufacturado(articuloManufacturado1)
-					.cantidad(2.0).build();
-			ArticuloManufacturadoDetalle articuloManufacturadoDetalle2=ArticuloManufacturadoDetalle.builder()
 					.articuloInsumo(articuloInsumo2)
 					.articuloManufacturado(articuloManufacturado1)
-					.cantidad(6.0).build();
-			ArticuloManufacturadoDetalle articuloManufacturadoDetalle3=ArticuloManufacturadoDetalle.builder()
-					.articuloInsumo(articuloInsumo3)
+					.cantidad(200.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle2=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo4)
 					.articuloManufacturado(articuloManufacturado1)
-					.cantidad(8.0).build();
+					.cantidad(200.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle3=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo1)
+					.articuloManufacturado(articuloManufacturado1)
+					.cantidad(3.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle4=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo12)
+					.articuloManufacturado(articuloManufacturado1)
+					.cantidad(3.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle5=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo1)
+					.articuloManufacturado(articuloManufacturado2)
+					.cantidad(3.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle6=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo2)
+					.articuloManufacturado(articuloManufacturado2)
+					.cantidad(100.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle7=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo4)
+					.articuloManufacturado(articuloManufacturado2)
+					.cantidad(200.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle8=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo13)
+					.articuloManufacturado(articuloManufacturado2)
+					.cantidad(50.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle9=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo1)
+					.articuloManufacturado(articuloManufacturado3)
+					.cantidad(3.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle10=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo2)
+					.articuloManufacturado(articuloManufacturado3)
+					.cantidad(100.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle11=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo4)
+					.articuloManufacturado(articuloManufacturado3)
+					.cantidad(200.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle12=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo14)
+					.articuloManufacturado(articuloManufacturado1)
+					.cantidad(2.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle13=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo14)
+					.articuloManufacturado(articuloManufacturado2)
+					.cantidad(2.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle14=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo1)
+					.articuloManufacturado(articuloManufacturado1)
+					.cantidad(3.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle15=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo14)
+					.articuloManufacturado(articuloManufacturado3)
+					.cantidad(3.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle16=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo14)
+					.articuloManufacturado(articuloManufacturado4)
+					.cantidad(2.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle17=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo15)
+					.articuloManufacturado(articuloManufacturado4)
+					.cantidad(200.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle18=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo1)
+					.articuloManufacturado(articuloManufacturado1)
+					.cantidad(3.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle19=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo14)
+					.articuloManufacturado(articuloManufacturado5)
+					.cantidad(3.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle20=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo15)
+					.articuloManufacturado(articuloManufacturado5)
+					.cantidad(500.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle21=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo10)
+					.articuloManufacturado(articuloManufacturado6)
+					.cantidad(1.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle22=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo1)
+					.articuloManufacturado(articuloManufacturado6)
+					.cantidad(1.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle23=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo5)
+					.articuloManufacturado(articuloManufacturado6)
+					.cantidad(50.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle24=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo6)
+					.articuloManufacturado(articuloManufacturado6)
+					.cantidad(20.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle25=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo7)
+					.articuloManufacturado(articuloManufacturado6)
+					.cantidad(20.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle26=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo8)
+					.articuloManufacturado(articuloManufacturado6)
+					.cantidad(150.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle27=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo14)
+					.articuloManufacturado(articuloManufacturado6)
+					.cantidad(3.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle28=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo11)
+					.articuloManufacturado(articuloManufacturado7)
+					.cantidad(1.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle29=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo1)
+					.articuloManufacturado(articuloManufacturado7)
+					.cantidad(1.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle30=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo5)
+					.articuloManufacturado(articuloManufacturado7)
+					.cantidad(75.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle31=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo6)
+					.articuloManufacturado(articuloManufacturado7)
+					.cantidad(25.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle32=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo7)
+					.articuloManufacturado(articuloManufacturado7)
+					.cantidad(25.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle33=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo9)
+					.articuloManufacturado(articuloManufacturado7)
+					.cantidad(200.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle34=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo14)
+					.articuloManufacturado(articuloManufacturado7)
+					.cantidad(4.0).build();
+
 
 			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle3);
 			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle2);
 			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle1);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle4);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle5);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle6);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle7);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle8);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle9);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle10);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle11);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle12);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle13);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle14);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle15);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle16);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle17);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle18);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle19);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle20);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle21);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle22);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle23);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle24);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle25);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle26);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle27);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle28);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle29);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle30);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle31);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle32);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle33);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle34);
 
 			Pedido pedido1 = Pedido.builder()
 					.fechaPedido(new Date())

@@ -3,8 +3,6 @@ package com.example.JPAElBuenSabor.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,7 +15,7 @@ public class Provincia extends Base{
 
     private String nombre;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Considera usar FetchType.LAZY si es posible
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pais_id")
     private Pais pais;
 

@@ -9,10 +9,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PaisService {
+public class PaisService implements BaseService<Pais>{
 
     @Autowired
     private PaisRepository paisRepository;
+
+    public List<Pais> buscarPorDenominacion(String denominacion) throws Exception{
+        try{
+            List<Pais> paises = paisRepository.buscarPorDenominacion(denominacion);
+            return paises;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 
     public List<Pais> findAll() {
         return paisRepository.findAll();

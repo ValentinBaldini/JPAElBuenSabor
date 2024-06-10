@@ -3,8 +3,6 @@ package com.example.JPAElBuenSabor.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,5 +13,5 @@ import java.util.Set;
 @Builder
 public class Pais extends Base{
 
-    private String nombre;
+    private String denominacion;
 }
