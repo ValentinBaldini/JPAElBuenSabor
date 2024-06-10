@@ -985,6 +985,7 @@ public class JpaElBuenSaborApplication{
 			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle3);
 			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle2);
 			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle1);
+
 		};
 	}
 }
