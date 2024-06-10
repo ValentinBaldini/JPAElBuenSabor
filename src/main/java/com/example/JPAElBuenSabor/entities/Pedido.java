@@ -1,21 +1,32 @@
 package com.example.JPAElBuenSabor.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.JPAElBuenSabor.entities.enums.TipoEnvio;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Entity
-@AllArgsConstructor
+import java.util.Date;
+
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "pedido")
+@Entity
+@ToString
+@Builder
 public class Pedido extends Base {
 
-    @Column(name = "denominacion")
-    private String denominacion;
+    private String horaEstimadaFinalizacion;
+
+    @Enumerated(EnumType.STRING)
+    private TipoEnvio tipoEnvio;
+
+    private Date fechaPedido;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="sucursal_id")
+    private Sucursal sucursal;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="domicilio_cliente_id")
+    private DomicilioCliente domicilioCliente;
 }

@@ -1,5 +1,6 @@
 package com.example.JPAElBuenSabor.entities;
 
+import com.example.JPAElBuenSabor.entities.enums.Estado;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,17 +11,14 @@ import lombok.*;
 @Entity
 @ToString
 @Builder
-public class PedidoDetalle extends Base{
+public class EstadoPedido extends Base{
 
-    private int cantidad;
+    private Integer minutos;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "articulo_id")
-    private Articulo articulo;
-
-
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
 }

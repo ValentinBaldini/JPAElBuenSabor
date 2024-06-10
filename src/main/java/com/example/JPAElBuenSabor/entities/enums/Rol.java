@@ -1,7 +1,7 @@
 
 package com.example.JPAElBuenSabor.entities.enums;
 
-public enum Roles {
+public enum Rol {
     ADMIN,
     COCINERO,
     CAJERO,

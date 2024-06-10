@@ -1,7 +1,7 @@
 package com.example.JPAElBuenSabor;
 
 import com.example.JPAElBuenSabor.entities.*;
-import com.example.JPAElBuenSabor.entities.enums.Roles;
+import com.example.JPAElBuenSabor.entities.enums.Rol;
 import com.example.JPAElBuenSabor.repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,10 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 @SpringBootApplication
 public class JpaElBuenSaborApplication{
@@ -29,10 +26,10 @@ public class JpaElBuenSaborApplication{
 
 	@Autowired
 	private ImagenRepository imagenRepository;
-	/*
+
 	@Autowired
 	private PromocionDetalleRepository promocionDetalleRepository;
-*/
+
 	@Autowired
 	private HistoricoPrecioPromocionRepository historicoPrecioPromocionRepository;
 
@@ -86,17 +83,16 @@ public class JpaElBuenSaborApplication{
 
 	@Autowired
 	HistoricoHorarioPromocionRepository historicoHorarioPromocionRepository;
-/*
 
 	@Autowired
 	private UnidadMedidaRepository unidadMedidaRepository;
-*/
+
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
 	@Autowired
 	private CategoriaSucursalRepository categoriaSucursalRepository;
-/*
+
 	@Autowired
 	private ArticuloInsumoRepository articuloInsumoRepository;
 
@@ -104,22 +100,18 @@ public class JpaElBuenSaborApplication{
 	private ArticuloManufacturadoRepository articuloManufacturadoRepository;
 
 	@Autowired
-	private ImagenRepository imagenArticuloRepository;
-*/
-	@Autowired
 	private PromocionRepository promocionRepository;
 	@Autowired
 	private PromocionSucursalRepository promocionSucursalRepository;
-/*
+
 	@Autowired
 	private ArticuloManufacturadoDetalleRepository articuloManufacturadoDetalleRepository;
-
+/*
 	@Autowired
 	private PedidoRepository pedidoRepository;*/
 
 	public static void main(String[] args) {
 		SpringApplication.run(JpaElBuenSaborApplication.class, args);
-		logger.info("Estoy activo en el main");
 	}
 
 
@@ -129,33 +121,6 @@ public class JpaElBuenSaborApplication{
 			logger.info("----------------ESTOY----FUNCIONANDO---------------------");
 
 			/*
-			Categoria categoriaBebidas = Categoria.builder().denominacion("Bebidas").
-					build();
-			categoriaRepository.save(categoriaBebidas);
-
-			Categoria categoriaGaseosas = Categoria.builder().denominacion("Gaseosas").
-					build();
-			categoriaRepository.save(categoriaGaseosas);
-
-			Categoria categoriaTragos = Categoria.builder().denominacion("Tragos").
-					build();
-			categoriaRepository.save(categoriaTragos);
-
-			Categoria categoriaPizzas = Categoria.builder().denominacion("Pizzas").
-					build();
-
-			Categoria categoriaInsumos = Categoria.builder().denominacion("Insumos").
-					build();
-
-			// Grabo la categoria de insumos y de Manufacturados
-			categoriaRepository.save(categoriaPizzas);
-			categoriaRepository.save(categoriaInsumos);
-			// Asigno subCategorias
-
-			categoriaBebidas.getSubCategorias().add(categoriaGaseosas);
-			categoriaBebidas.getSubCategorias().add(categoriaTragos);
-			// Grabo las Subcategorias
-			categoriaRepository.save(categoriaBebidas);
 
 			// Crear Unidades de medida
 			UnidadMedida unidadMedidaLitros = UnidadMedida.builder().denominacion("Litros").build();
@@ -615,13 +580,13 @@ public class JpaElBuenSaborApplication{
 			telefonoRepository.save(telefono4);
 			telefonoRepository.save(telefono5);
 
-			HistoricoRol historicoRol1=HistoricoRol.builder().fecha(new Date()).persona(cliente1).rol(Roles.DELIVERY).build();
-			HistoricoRol historicoRol2=HistoricoRol.builder().fecha(new Date()).persona(cliente2).rol(Roles.CLIENTE).build();
-			HistoricoRol historicoRol3=HistoricoRol.builder().fecha(new Date()).persona(cliente3).rol(Roles.CLIENTE).build();
-			HistoricoRol historicoRol4=HistoricoRol.builder().fecha(new Date()).persona(empleado3).rol(Roles.COCINERO).build();
-			HistoricoRol historicoRol5=HistoricoRol.builder().fecha(new Date()).persona(empleado1).rol(Roles.ADMIN).build();
-			HistoricoRol historicoRol6=HistoricoRol.builder().fecha(new Date()).persona(empleado2).rol(Roles.CAJERO).build();
-			HistoricoRol historicoRol7=HistoricoRol.builder().fecha(new Date()).persona(cliente1).rol(Roles.CLIENTE).build();
+			HistoricoRol historicoRol1=HistoricoRol.builder().fecha(new Date()).persona(cliente1).rol(Rol.DELIVERY).build();
+			HistoricoRol historicoRol2=HistoricoRol.builder().fecha(new Date()).persona(cliente2).rol(Rol.CLIENTE).build();
+			HistoricoRol historicoRol3=HistoricoRol.builder().fecha(new Date()).persona(cliente3).rol(Rol.CLIENTE).build();
+			HistoricoRol historicoRol4=HistoricoRol.builder().fecha(new Date()).persona(empleado3).rol(Rol.COCINERO).build();
+			HistoricoRol historicoRol5=HistoricoRol.builder().fecha(new Date()).persona(empleado1).rol(Rol.ADMIN).build();
+			HistoricoRol historicoRol6=HistoricoRol.builder().fecha(new Date()).persona(empleado2).rol(Rol.CAJERO).build();
+			HistoricoRol historicoRol7=HistoricoRol.builder().fecha(new Date()).persona(cliente1).rol(Rol.CLIENTE).build();
 
 			historicoRolRepository.save(historicoRol1);
 			historicoRolRepository.save(historicoRol2);

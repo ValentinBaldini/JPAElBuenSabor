@@ -1,6 +1,6 @@
 package com.example.JPAElBuenSabor.entities;
 
-import com.example.JPAElBuenSabor.entities.enums.Roles;
+import com.example.JPAElBuenSabor.entities.enums.Rol;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +17,7 @@ public class HistoricoRol extends Base{
 
     private Date fecha;
     @Enumerated(EnumType.STRING)
-    private Roles rol;
+    private Rol rol;
 
     /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="rol_id")
