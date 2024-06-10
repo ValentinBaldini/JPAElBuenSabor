@@ -1,7 +1,9 @@
 package com.example.JPAElBuenSabor;
 
 import com.example.JPAElBuenSabor.entities.*;
+import com.example.JPAElBuenSabor.entities.enums.Estado;
 import com.example.JPAElBuenSabor.entities.enums.Rol;
+import com.example.JPAElBuenSabor.entities.enums.TipoEnvio;
 import com.example.JPAElBuenSabor.repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,9 +114,15 @@ public class JpaElBuenSaborApplication{
 
 	@Autowired
 	private ArticuloManufacturadoDetalleRepository articuloManufacturadoDetalleRepository;
-/*
+
 	@Autowired
-	private PedidoRepository pedidoRepository;*/
+	private PedidoRepository pedidoRepository;
+
+	@Autowired
+	private EstadoPedidoRepository estadoPedidoRepository;
+
+	@Autowired
+	private PedidoDetalleRepository pedidoDetalleRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JpaElBuenSaborApplication.class, args);
@@ -985,6 +993,120 @@ public class JpaElBuenSaborApplication{
 			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle3);
 			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle2);
 			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle1);
+
+			Pedido pedido1 = Pedido.builder()
+					.fechaPedido(new Date())
+					.sucursal(sucursal1)
+					.domicilioCliente(domicilioCliente1)
+					.tipoEnvio(TipoEnvio.TAKE_AWAY)
+					.horaEstimadaFinalizacion("2")
+					.build();
+
+			Pedido pedido2 = Pedido.builder()
+					.fechaPedido(new Date())
+					.sucursal(sucursal1)
+					.domicilioCliente(domicilioCliente2)
+					.tipoEnvio(TipoEnvio.TAKE_AWAY)
+					.horaEstimadaFinalizacion("1")
+					.build();
+
+			Pedido pedido3 = Pedido.builder()
+					.fechaPedido(new Date())
+					.sucursal(sucursal1)
+					.domicilioCliente(domicilioCliente3)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.horaEstimadaFinalizacion("3")
+					.build();
+
+			Pedido pedido4 = Pedido.builder()
+					.fechaPedido(new Date())
+					.sucursal(sucursal3)
+					.domicilioCliente(domicilioCliente2)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.horaEstimadaFinalizacion("4")
+					.build();
+
+			Pedido pedido5 = Pedido.builder()
+					.fechaPedido(new Date())
+					.sucursal(sucursal1)
+					.domicilioCliente(domicilioCliente1)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.horaEstimadaFinalizacion("3")
+					.build();
+
+
+			pedidoRepository.save(pedido1);
+			pedidoRepository.save(pedido2);
+			pedidoRepository.save(pedido3);
+			pedidoRepository.save(pedido4);
+			pedidoRepository.save(pedido5);
+
+			EstadoPedido pedidoEstado1 = EstadoPedido.builder()
+					.pedido(pedido1)
+					.minutos(25)
+					.estado(Estado.ENTREGADO)
+					.build();
+
+			EstadoPedido pedidoEstado2 = EstadoPedido.builder()
+					.pedido(pedido2)
+					.minutos(15)
+					.estado(Estado.PENDIENTE)
+					.build();
+
+			EstadoPedido pedidoEstado3 = EstadoPedido.builder()
+					.pedido(pedido3)
+					.minutos(10)
+					.estado(Estado.CANCELADO)
+					.build();
+
+			EstadoPedido pedidoEstado4 = EstadoPedido.builder()
+					.pedido(pedido4)
+					.minutos(20)
+					.estado(Estado.PREPARACION)
+					.build();
+
+
+			estadoPedidoRepository.save(pedidoEstado1);
+			estadoPedidoRepository.save(pedidoEstado2);
+			estadoPedidoRepository.save(pedidoEstado3);
+			estadoPedidoRepository.save(pedidoEstado4);
+
+			PedidoDetalle pedidoDetalle1 = PedidoDetalle.builder()
+			.articulo(articuloManufacturado3)
+			.cantidad(5)
+			.pedido(pedido1)
+			.build();
+
+			PedidoDetalle pedidoDetalle2 = PedidoDetalle.builder()
+			.articulo(articuloManufacturado1)
+			.cantidad(2)
+			.pedido(pedido2)
+			.build();
+
+			PedidoDetalle pedidoDetalle3 = PedidoDetalle.builder()
+			.articulo(articuloManufacturado2)
+			.cantidad(1)
+			.pedido(pedido3)
+			.build();
+
+			PedidoDetalle pedidoDetalle4 = PedidoDetalle.builder()
+			.articulo(articuloInsumo1)
+			.cantidad(5)
+			.pedido(pedido4)
+			.build();
+
+			PedidoDetalle pedidoDetalle5 = PedidoDetalle.builder()
+			.articulo(articuloInsumo4)
+			.cantidad(3)
+			.pedido(pedido5)
+			.build();
+
+			
+			pedidoDetalleRepository.save(pedidoDetalle1);
+			pedidoDetalleRepository.save(pedidoDetalle2);
+			pedidoDetalleRepository.save(pedidoDetalle3);
+			pedidoDetalleRepository.save(pedidoDetalle4);
+			pedidoDetalleRepository.save(pedidoDetalle5);
 
 		};
 	}
