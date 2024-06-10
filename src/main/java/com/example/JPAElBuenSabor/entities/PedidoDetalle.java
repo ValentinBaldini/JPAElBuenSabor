@@ -21,7 +21,5 @@ public class PedidoDetalle extends Base{
     @JoinColumn(name = "fk_pedido")
     private Pedido pedido;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_articulo")
-    private Articulo articulo;
+
 }

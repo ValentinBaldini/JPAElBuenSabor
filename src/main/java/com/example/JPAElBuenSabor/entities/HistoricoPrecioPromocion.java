@@ -1,28 +1,23 @@
 package com.example.JPAElBuenSabor.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "historicoPrecioPromocion")
+@Entity
+@ToString
+@Builder
 public class HistoricoPrecioPromocion extends Base{
 
-    @Column(name = "fecha")
     private Date fecha;
-
-    @Column(name = "precioPromocional")
     private Double precioPromocional;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_promocion")
     private Promocion promocion;
 

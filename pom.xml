@@ -11,6 +11,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring.boot.version>3.2.4</spring.boot.version>
+		<lombok.version>1.18.24</lombok.version> <!-- Añadido -->
 	</properties>
 
 	<dependencyManagement>
@@ -73,7 +74,7 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>${lombok.version}</version>
+							<version>${lombok.version}</version> <!-- Corregido -->
 						</path>
 					</annotationProcessorPaths>
 				</configuration>

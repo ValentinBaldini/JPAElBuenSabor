@@ -22,7 +22,4 @@ public class PromocionDetalle extends Base{
     @JoinColumn(name = "fk_promocion")
     private Promocion promocion;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_articulo")
-    private Articulo articulo;
 }

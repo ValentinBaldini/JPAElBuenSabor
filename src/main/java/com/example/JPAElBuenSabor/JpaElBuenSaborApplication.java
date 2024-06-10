@@ -26,15 +26,15 @@ public class JpaElBuenSaborApplication{
 
 	@Autowired
 	private EmpleadoRepository empleadoRepository;
-	/*
+
 	@Autowired
-	private ImagenRepository imagenPersonaRepository;
+	private ImagenRepository imagenRepository;
+	/*
 	@Autowired
 	private PromocionDetalleRepository promocionDetalleRepository;
 */
-
-	/*@Autowired
-	private RolRepository rolRepository;*/
+	@Autowired
+	private HistoricoPrecioPromocionRepository historicoPrecioPromocionRepository;
 
 	@Autowired
 	private HistoricoRolRepository historicoRolRepository;
@@ -77,14 +77,26 @@ public class JpaElBuenSaborApplication{
 
 	@Autowired
 	private TelefonoRepository telefonoRepository;
+
+	@Autowired
+	HorarioPromocionAperturaRepository horarioPromocionAperturaRepository;
+
+	@Autowired
+	HorarioPromocionCierreRepository horarioPromocionCierreRepository;
+
+	@Autowired
+	HistoricoHorarioPromocionRepository historicoHorarioPromocionRepository;
 /*
 
 	@Autowired
 	private UnidadMedidaRepository unidadMedidaRepository;
-
+*/
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
+	@Autowired
+	private CategoriaSucursalRepository categoriaSucursalRepository;
+/*
 	@Autowired
 	private ArticuloInsumoRepository articuloInsumoRepository;
 
@@ -93,10 +105,12 @@ public class JpaElBuenSaborApplication{
 
 	@Autowired
 	private ImagenRepository imagenArticuloRepository;
-
+*/
 	@Autowired
 	private PromocionRepository promocionRepository;
-
+	@Autowired
+	private PromocionSucursalRepository promocionSucursalRepository;
+/*
 	@Autowired
 	private ArticuloManufacturadoDetalleRepository articuloManufacturadoDetalleRepository;
 
@@ -396,6 +410,27 @@ public class JpaElBuenSaborApplication{
 			sucursalRepository.save(sucursal2);
 			sucursalRepository.save(sucursal3);
 
+			Imagen imagen1=Imagen.builder()
+					.denominacion("https://www.imagen1.com").build();
+			Imagen imagen2=Imagen.builder()
+					.denominacion("https://www.imagen2.com").build();
+			Imagen imagen3=Imagen.builder()
+					.denominacion("https://www.imagen3.com").build();
+			Imagen imagen4=Imagen.builder()
+					.denominacion("https://www.imagen4.com").build();
+			Imagen imagen5=Imagen.builder()
+					.denominacion("https://www.imagen5.com").build();
+			Imagen imagen6=Imagen.builder()
+					.denominacion("https://www.imagen6.com").build();
+
+			imagenRepository.save(imagen1);
+			imagenRepository.save(imagen2);
+			imagenRepository.save(imagen3);
+			imagenRepository.save(imagen5);
+			imagenRepository.save(imagen4);
+			imagenRepository.save(imagen6);
+
+
 			HorarioCierre horarioCierre1=HorarioCierre.builder()
 					.hora(21)
 					.minuto(00)
@@ -472,18 +507,21 @@ public class JpaElBuenSaborApplication{
 					.nombre("Carlitox")
 					.fechaNacimiento(new Date())
 					.apellido("Finster")
+					.imagen(imagen2)
 					.usuario(usuario1)
 					.build();
 			Cliente cliente2=Cliente.builder()
 					.nombre("Carlos")
 					.fechaNacimiento(new Date())
 					.apellido("Rodriguez")
+					.imagen(imagen6)
 					.usuario(usuario5)
 					.build();
 			Cliente cliente3=Cliente.builder()
 					.nombre("Gerardo")
 					.apellido("Magni")
 					.usuario(usuario3)
+					.imagen(imagen1)
 					.fechaNacimiento(new Date())
 					.build();
 
@@ -521,6 +559,7 @@ public class JpaElBuenSaborApplication{
 					.apellido("Vargas")
 					.usuario(usuario4)
 					.nombre("Pedro")
+					.imagen(imagen5)
 					.fechaNacimiento(new Date())
 					.build();
 			Empleado empleado2=Empleado.builder()
@@ -528,12 +567,14 @@ public class JpaElBuenSaborApplication{
 					.apellido("Villavicencio")
 					.nombre("Pablo")
 					.usuario(usuario2)
+					.imagen(imagen4)
 					.fechaNacimiento(new Date())
 					.sucursal(sucursal1).build();
 			Empleado empleado3=Empleado.builder()
 					.legajo("1223")
 					.apellido("Vidal")
 					.usuario(usuario6)
+					.imagen(imagen5)
 					.nombre("Gabriela")
 					.fechaNacimiento(new Date())
 					.sucursal(sucursal3).build();
@@ -589,6 +630,211 @@ public class JpaElBuenSaborApplication{
 			historicoRolRepository.save(historicoRol5);
 			historicoRolRepository.save(historicoRol6);
 			historicoRolRepository.save(historicoRol7);
+
+			Promocion promo1=Promocion.builder()
+					.imagen(imagen3)
+					.denominacion("Dia de los enamorados")
+					.descripcion("Menu especial para 2 personas")
+					.fechaDesde(new Date())
+					.fechaHasta(new Date())
+					.build();
+			Promocion promo2=Promocion.builder()
+					.imagen(imagen3)
+					.denominacion("Dia del niño")
+					.descripcion("Menu infantil a mitad de precio")
+					.fechaDesde(new Date())
+					.fechaHasta(new Date())
+					.build();
+			Promocion promo3=Promocion.builder()
+					.imagen(imagen3)
+					.denominacion("Dia de la madre")
+					.descripcion("Si venis con tu madre, paga mitad de precio")
+					.fechaDesde(new Date())
+					.fechaHasta(new Date())
+					.build();
+
+			promocionRepository.save(promo1);
+			promocionRepository.save(promo2);
+			promocionRepository.save(promo3);
+
+			HistoricoPrecioPromocion historicoPrecioPromocion1=HistoricoPrecioPromocion.builder()
+					.promocion(promo1)
+					.fecha(new Date())
+					.precioPromocional(70.5).build();
+			HistoricoPrecioPromocion historicoPrecioPromocion2=HistoricoPrecioPromocion.builder()
+					.promocion(promo3)
+					.fecha(new Date())
+					.precioPromocional(20.52).build();
+			HistoricoPrecioPromocion historicoPrecioPromocion3=HistoricoPrecioPromocion.builder()
+					.promocion(promo2)
+					.fecha(new Date())
+					.precioPromocional(77.5).build();
+			HistoricoPrecioPromocion historicoPrecioPromocion4=HistoricoPrecioPromocion.builder()
+					.promocion(promo1)
+					.fecha(new Date())
+					.precioPromocional(90.5).build();
+
+			historicoPrecioPromocionRepository.save(historicoPrecioPromocion1);
+			historicoPrecioPromocionRepository.save(historicoPrecioPromocion2);
+			historicoPrecioPromocionRepository.save(historicoPrecioPromocion3);
+			historicoPrecioPromocionRepository.save(historicoPrecioPromocion4);
+
+			PromocionSucursal promocionSucursal1=PromocionSucursal.builder()
+					.promocion(promo1)
+					.estaActivo(true)
+					.sucursal(sucursal1)
+					.build();
+			PromocionSucursal promocionSucursal2=PromocionSucursal.builder()
+					.promocion(promo1)
+					.estaActivo(true)
+					.sucursal(sucursal2)
+					.build();
+			PromocionSucursal promocionSucursal3=PromocionSucursal.builder()
+					.promocion(promo2)
+					.estaActivo(true)
+					.sucursal(sucursal2)
+					.build();
+			PromocionSucursal promocionSucursal4=PromocionSucursal.builder()
+					.promocion(promo1)
+					.estaActivo(true)
+					.sucursal(sucursal3)
+					.build();
+			PromocionSucursal promocionSucursal5=PromocionSucursal.builder()
+					.promocion(promo3)
+					.estaActivo(true)
+					.sucursal(sucursal1)
+					.build();
+
+			promocionSucursalRepository.save(promocionSucursal1);
+			promocionSucursalRepository.save(promocionSucursal4);
+			promocionSucursalRepository.save(promocionSucursal5);
+			promocionSucursalRepository.save(promocionSucursal3);
+			promocionSucursalRepository.save(promocionSucursal2);
+
+			HorarioPromocionApertura horarioPromocionApertura1=HorarioPromocionApertura.builder().hora(20).minuto(00).build();
+			HorarioPromocionApertura horarioPromocionApertura2=HorarioPromocionApertura.builder().hora(21).minuto(00).build();
+			HorarioPromocionApertura horarioPromocionApertura3=HorarioPromocionApertura.builder().hora(22).minuto(00).build();
+			HorarioPromocionCierre horarioPromocionCierre1=HorarioPromocionCierre.builder().hora(22).minuto(00).build();
+			HorarioPromocionCierre horarioPromocionCierre2=HorarioPromocionCierre.builder().hora(23).minuto(00).build();
+			HorarioPromocionCierre horarioPromocionCierre3=HorarioPromocionCierre.builder().hora(24).minuto(00).build();
+
+			horarioPromocionAperturaRepository.save(horarioPromocionApertura3);
+			horarioPromocionAperturaRepository.save(horarioPromocionApertura2);
+			horarioPromocionAperturaRepository.save(horarioPromocionApertura1);
+			horarioPromocionCierreRepository.save(horarioPromocionCierre1);
+			horarioPromocionCierreRepository.save(horarioPromocionCierre2);
+			horarioPromocionCierreRepository.save(horarioPromocionCierre3);
+
+			HistoricoHorarioPromocion historicoHorarioPromocion1=HistoricoHorarioPromocion.builder()
+					.horarioPromocionApertura(horarioPromocionApertura1)
+					.horarioPromocionCierre(horarioPromocionCierre1)
+					.fecha(new Date())
+					.promocion(promo1)
+					.build();
+			HistoricoHorarioPromocion historicoHorarioPromocion2=HistoricoHorarioPromocion.builder()
+					.horarioPromocionApertura(horarioPromocionApertura2)
+					.horarioPromocionCierre(horarioPromocionCierre2)
+					.fecha(new Date())
+					.promocion(promo2)
+					.build();
+			HistoricoHorarioPromocion historicoHorarioPromocion3=HistoricoHorarioPromocion.builder()
+					.horarioPromocionApertura(horarioPromocionApertura3)
+					.horarioPromocionCierre(horarioPromocionCierre3)
+					.fecha(new Date())
+					.promocion(promo3)
+					.build();
+			HistoricoHorarioPromocion historicoHorarioPromocion4=HistoricoHorarioPromocion.builder()
+					.horarioPromocionApertura(horarioPromocionApertura1)
+					.horarioPromocionCierre(horarioPromocionCierre3)
+					.fecha(new Date())
+					.promocion(promo1)
+					.build();
+
+			historicoHorarioPromocionRepository.save(historicoHorarioPromocion1);
+			historicoHorarioPromocionRepository.save(historicoHorarioPromocion2);
+			historicoHorarioPromocionRepository.save(historicoHorarioPromocion4);
+			historicoHorarioPromocionRepository.save(historicoHorarioPromocion3);
+
+			Categoria categoria1=Categoria.builder()
+					.denominacion("CategoriaRoot")
+					.esInsumo(true)
+					.build();
+			Categoria categoria2=Categoria.builder()
+					.denominacion("Carnes")
+					.esInsumo(true)
+					.categoria(categoria1)
+					.build();
+			Categoria categoria3=Categoria.builder()
+					.denominacion("Bebidas")
+					.esInsumo(true)
+					.categoria(categoria1)
+					.build();
+			Categoria categoria4=Categoria.builder()
+					.denominacion("Pizzas")
+					.esInsumo(true)
+					.categoria(categoria1)
+					.build();
+			Categoria categoria5=Categoria.builder()
+					.denominacion("Gaseosas")
+					.esInsumo(true)
+					.categoria(categoria3)
+					.build();
+			Categoria categoria6=Categoria.builder()
+					.denominacion("Cervezas")
+					.esInsumo(true)
+					.categoria(categoria3)
+					.build();
+
+			categoriaRepository.save(categoria1);
+			categoriaRepository.save(categoria2);
+			categoriaRepository.save(categoria3);
+			categoriaRepository.save(categoria4);
+			categoriaRepository.save(categoria5);
+			categoriaRepository.save(categoria6);
+
+			CategoriaSucursal categoriaSucursal1=CategoriaSucursal.builder()
+					.categoria(categoria2)
+					.sucursal(sucursal1)
+					.estaActivo(true)
+					.build();
+			CategoriaSucursal categoriaSucursal2=CategoriaSucursal.builder()
+					.categoria(categoria3)
+					.sucursal(sucursal1)
+					.estaActivo(true)
+					.build();
+			CategoriaSucursal categoriaSucursal3=CategoriaSucursal.builder()
+					.categoria(categoria4)
+					.sucursal(sucursal1)
+					.estaActivo(false)
+					.build();
+			CategoriaSucursal categoriaSucursal4=CategoriaSucursal.builder()
+					.categoria(categoria5)
+					.sucursal(sucursal1)
+					.estaActivo(true)
+					.build();
+			CategoriaSucursal categoriaSucursal5=CategoriaSucursal.builder()
+					.categoria(categoria6)
+					.sucursal(sucursal1)
+					.estaActivo(true)
+					.build();
+			CategoriaSucursal categoriaSucursal6=CategoriaSucursal.builder()
+					.categoria(categoria2)
+					.sucursal(sucursal2)
+					.estaActivo(true)
+					.build();
+			CategoriaSucursal categoriaSucursal7=CategoriaSucursal.builder()
+					.categoria(categoria3)
+					.sucursal(sucursal2)
+					.estaActivo(true)
+					.build();
+
+			categoriaSucursalRepository.save(categoriaSucursal6);
+			categoriaSucursalRepository.save(categoriaSucursal5);
+			categoriaSucursalRepository.save(categoriaSucursal4);
+			categoriaSucursalRepository.save(categoriaSucursal3);
+			categoriaSucursalRepository.save(categoriaSucursal2);
+			categoriaSucursalRepository.save(categoriaSucursal1);
+			categoriaSucursalRepository.save(categoriaSucursal7);
 		};
 	}
 }

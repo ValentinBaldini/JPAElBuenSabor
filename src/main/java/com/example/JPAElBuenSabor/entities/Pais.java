@@ -15,6 +15,5 @@ import java.util.Set;
 @Builder
 public class Pais extends Base{
 
-    @Column(name = "nombre")
     private String nombre;
 }

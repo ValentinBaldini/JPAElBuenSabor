@@ -3,15 +3,13 @@ package com.example.JPAElBuenSabor.entities;
 import jakarta.persistence.Entity;
 import lombok.*;
 
-@NoArgsConstructor
+@Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@ToString
 @Builder
-public class HorarioPromocionApertura extends Base {
+public class Imagen extends Base{
 
-    private int hora;
-    private int minuto;
+    private String denominacion;
 }
