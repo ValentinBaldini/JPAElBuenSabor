@@ -968,6 +968,24 @@ public class JpaElBuenSaborApplication{
 			articuloManufacturadoRepository.save(articuloManufacturado1);
 			articuloManufacturadoRepository.save(articuloManufacturado2);
 			articuloManufacturadoRepository.save(articuloManufacturado3);
+
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle1=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo1)
+					.articuloManufacturado(articuloManufacturado1)
+					.cantidad(2.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle2=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo2)
+					.articuloManufacturado(articuloManufacturado1)
+					.cantidad(6.0).build();
+			ArticuloManufacturadoDetalle articuloManufacturadoDetalle3=ArticuloManufacturadoDetalle.builder()
+					.articuloInsumo(articuloInsumo3)
+					.articuloManufacturado(articuloManufacturado1)
+					.cantidad(8.0).build();
+
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle3);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle2);
+			articuloManufacturadoDetalleRepository.save(articuloManufacturadoDetalle1);
+
 		};
 	}
 }
